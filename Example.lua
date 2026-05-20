@@ -1,5 +1,5 @@
 local WindUI = loadstring(game:HttpGet(
-	"https://raw.githubusercontent.com/Moon-820/WindUI-Trx/refs/heads/main/dist/main.lua"
+	"https://raw.githubusercontent.com/Moon-820/Windi-Trx/refs/heads/main/dist/main.lua"
 ))()
 
 WindUI:SetTheme("Dark")
