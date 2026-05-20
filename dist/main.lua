@@ -1,19 +1,3 @@
---[[
-     _      ___         ____  ______
-    | | /| / (_)__  ___/ / / / /  _/
-    | |/ |/ / / _ \/ _  / /_/ // /  
-    |__/|__/_/_//_/\_,_/\____/___/
-    
-    v1.6.65  |  2026-05-14  |  Roblox UI Library for scripts
-    
-    To view the source code, see the `src/` folder on the official GitHub repository.
-    
-    Author: Footagesus (Footages, .ftgs, oftgs)
-    Github: https://github.com/Footagesus/WindUI
-    Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
-]]
-
 local a a={cache={}, load=function(b)if not a.cache[b]then a.cache[b]={c=a[b]()}end return a.cache[b].c end}do function a.a()local b=(cloneref or clonereference or function(b)return b end)
 
 local d=b(game:GetService"ReplicatedStorage":WaitForChild("GetIcons",99999):InvokeServer())
@@ -10090,7 +10074,844 @@ aj.Tab
 return ak.__type,ak
 end
 
-return af end function a.X()
+return af end function a.CD()
+local aa=a.load'c'
+local ab=aa.New
+local ac=aa.NewRoundFrame
+local ae={}
+function ae.New(af,ag)
+local ah={
+__type="Card",
+Title=ag.Title or"Card",
+Desc=ag.Desc or nil,
+Color=ag.Color or nil,
+Image=ag.Image or nil,
+Badge=ag.Badge or nil,
+Callback=ag.Callback or function()end,
+UIElements={},
+}
+local ai=ag.Window.ElementConfig.UIPadding
+local aj=ag.Window.ElementConfig.UICorner
+local ak=ab("TextLabel",{
+BackgroundTransparency=1,
+Text=ah.Title,
+TextSize=16,
+TextXAlignment="Left",
+TextWrapped=true,
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+FontFace=Font.new(aa.Font,Enum.FontWeight.Bold),
+TextColor3=ah.Color and Color3.new(1,1,1) or nil,
+ThemeTag=not ah.Color and{TextColor3="ElementTitle"}or nil,
+})
+local al=nil
+if ah.Desc~=nil and ah.Desc~="" then
+al=ab("TextLabel",{
+BackgroundTransparency=1,
+Text=ah.Desc,
+TextSize=13,
+TextXAlignment="Left",
+TextTransparency=0.35,
+TextWrapped=true,
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+FontFace=Font.new(aa.Font,Enum.FontWeight.Medium),
+TextColor3=ah.Color and Color3.new(1,1,1) or nil,
+ThemeTag=not ah.Color and{TextColor3="ElementDesc"}or nil,
+})
+end
+local am=ab("Frame",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+BackgroundTransparency=1,
+LayoutOrder=2,
+},{
+ab("UIListLayout",{Padding=UDim.new(0,3),FillDirection="Vertical",SortOrder="LayoutOrder"}),
+ak,al,
+})
+local an=nil
+if ah.Image then
+an=ab("ImageLabel",{
+Size=UDim2.new(0,36,0,36),
+BackgroundTransparency=0.85,
+Image=ah.Image,
+BackgroundColor3=Color3.new(1,1,1),
+ScaleType="Crop",
+LayoutOrder=1,
+},{
+ab("UICorner",{CornerRadius=UDim.new(0,8)}),
+})
+end
+local ao=nil
+if ah.Badge then
+local badgeColor=ah.Badge.Color or Color3.fromHex"#ffffff"
+local badgeAlpha=ah.Color and 0.25 or 0
+ao=ab("Frame",{
+Size=UDim2.new(0,0,0,26),
+AutomaticSize="X",
+BackgroundColor3=badgeColor,
+BackgroundTransparency=badgeAlpha,
+LayoutOrder=3,
+},{
+ab("UICorner",{CornerRadius=UDim.new(0,6)}),
+ab("UIPadding",{PaddingLeft=UDim.new(0,8),PaddingRight=UDim.new(0,8),PaddingTop=UDim.new(0,2),PaddingBottom=UDim.new(0,2)}),
+ab("TextLabel",{
+BackgroundTransparency=1,
+Text=tostring(ah.Badge.Text or""),
+TextSize=13,
+TextColor3=Color3.new(1,1,1),
+Size=UDim2.new(0,0,1,0),
+AutomaticSize="X",
+FontFace=Font.new(aa.Font,Enum.FontWeight.SemiBold),
+}),
+})
+end
+local ap=ab("Frame",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+BackgroundTransparency=1,
+},{
+ab("UIListLayout",{Padding=UDim.new(0,10),FillDirection="Horizontal",VerticalAlignment="Center",SortOrder="LayoutOrder",HorizontalFlex="Fill"}),
+an,am,ao,
+})
+local aq
+if ah.Color then
+aq=ab("Frame",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+BackgroundColor3=ah.Color,
+Parent=ag.Parent,
+},{
+ab("UICorner",{CornerRadius=UDim.new(0,aj)}),
+ap,
+ab("UIPadding",{
+PaddingTop=UDim.new(0,ai),
+PaddingLeft=UDim.new(0,ai),
+PaddingRight=UDim.new(0,ai),
+PaddingBottom=UDim.new(0,ai),
+}),
+})
+else
+aq=ac(aj,"Squircle",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+Parent=ag.Parent,
+ThemeTag={ImageColor3="ElementBackground",ImageTransparency="ElementBackgroundTransparency"},
+},{
+ap,
+ab("UIPadding",{
+PaddingTop=UDim.new(0,ai),
+PaddingLeft=UDim.new(0,ai),
+PaddingRight=UDim.new(0,ai),
+PaddingBottom=UDim.new(0,ai),
+}),
+})
+end
+local ar=ab("ImageButton",{
+Size=UDim2.new(1,0,1,0),
+BackgroundTransparency=1,
+ZIndex=10,
+Parent=aq,
+})
+ar.MouseButton1Click:Connect(function() ah.Callback() end)
+ah.CardFrame={
+UIElements={Main=aq},
+Index=ag.Index,
+UpdateShape=function()end,
+SetTitle=function(_,t) ah.Title=t ak.Text=t end,
+SetDesc=function(_,t)
+ah.Desc=t
+if al then al.Text=t or"" al.Visible=t~=nil and t~="" end
+end,
+SetBadge=function(_,t)
+if ao then
+local lbl=ao:FindFirstChildWhichIsA("TextLabel")
+if lbl then lbl.Text=tostring(t) end
+end
+end,
+Highlight=function()end,
+Destroy=function() aq:Destroy()end,
+}
+function ah.SetColor(_,c)
+ah.Color=c
+aq.BackgroundColor3=c
+end
+function ah.Destroy() aq:Destroy()end
+return ah.__type,ah
+end
+return ae
+end
+function a.PB()
+local aa=a.load'c'
+local ab=aa.New
+local ac=aa.NewRoundFrame
+local ad=aa.Tween
+local ae={}
+function ae.New(af,ag)
+local ah={
+__type="ProgressBar",
+Title=ag.Title or"ProgressBar",
+Desc=ag.Desc or nil,
+Value=math.clamp(ag.Value or 0,0,100),
+Suffix=ag.Suffix or"%",
+Color=ag.Color or Color3.fromHex"#0091FF",
+Locked=ag.Locked or false,
+Callback=ag.Callback or function()end,
+UIElements={},
+}
+local ai=ag.Window.ElementConfig.UIPadding
+local aj=ag.Window.ElementConfig.UICorner
+local ak=ab("TextLabel",{
+BackgroundTransparency=1,
+Text=ah.Title,
+TextSize=17,
+TextXAlignment="Left",
+TextWrapped=true,
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+FontFace=Font.new(aa.Font,Enum.FontWeight.SemiBold),
+ThemeTag={TextColor3="ElementTitle"},
+})
+local al=ab("TextLabel",{
+BackgroundTransparency=1,
+Text=ah.Desc or"",
+TextSize=15,
+TextXAlignment="Left",
+TextTransparency=0.3,
+Visible=ah.Desc~=nil and ah.Desc~="",
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+FontFace=Font.new(aa.Font,Enum.FontWeight.Medium),
+ThemeTag={TextColor3="ElementDesc"},
+})
+local am=ab("TextLabel",{
+BackgroundTransparency=1,
+Text=tostring(math.floor(ah.Value))..ah.Suffix,
+TextSize=13,
+TextXAlignment="Right",
+Size=UDim2.new(1,0,0,14),
+FontFace=Font.new(aa.Font,Enum.FontWeight.Medium),
+ThemeTag={TextColor3="ElementDesc"},
+TextTransparency=0.3,
+})
+local an=ab("Frame",{
+Size=UDim2.new(1,0,0,8),
+ClipsDescendants=true,
+BackgroundTransparency=0.88,
+ThemeTag={BackgroundColor3="ElementTitle"},
+},{
+ab("UICorner",{CornerRadius=UDim.new(1,0)}),
+})
+local ao=ab("Frame",{
+Size=UDim2.new(ah.Value/100,0,1,0),
+BackgroundColor3=ah.Color,
+Parent=an,
+},{
+ab("UICorner",{CornerRadius=UDim.new(1,0)}),
+})
+local ap=ac(aj,"Squircle",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+Parent=ag.Parent,
+ThemeTag={ImageColor3="ElementBackground",ImageTransparency="ElementBackgroundTransparency"},
+},{
+ab("Frame",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+BackgroundTransparency=1,
+},{
+ab("UIListLayout",{Padding=UDim.new(0,8),FillDirection="Vertical",SortOrder="LayoutOrder"}),
+ab("Frame",{Size=UDim2.new(1,0,0,0),AutomaticSize="Y",BackgroundTransparency=1,LayoutOrder=0},{
+ab("UIListLayout",{Padding=UDim.new(0,4),FillDirection="Vertical"}),
+ak,al,
+}),
+ab("Frame",{Size=UDim2.new(1,0,0,0),AutomaticSize="Y",BackgroundTransparency=1,LayoutOrder=1},{
+ab("UIListLayout",{Padding=UDim.new(0,4),FillDirection="Vertical"}),
+am,an,
+}),
+}),
+ab("UIPadding",{
+PaddingTop=UDim.new(0,ai),
+PaddingLeft=UDim.new(0,ai),
+PaddingRight=UDim.new(0,ai),
+PaddingBottom=UDim.new(0,ai),
+}),
+})
+ah.ProgressBarFrame={
+UIElements={Main=ap},
+Index=ag.Index,
+UpdateShape=function()end,
+SetTitle=function(_,t) ah.Title=t ak.Text=t end,
+SetDesc=function(_,t) ah.Desc=t al.Text=t or"" al.Visible=t~=nil and t~="" end,
+Highlight=function()end,
+Destroy=function() ap:Destroy()end,
+}
+function ah.Set(_,v)
+if ah.Locked then return end
+v=math.clamp(v,0,100)
+ah.Value=v
+ad(ao,0.3,{Size=UDim2.new(v/100,0,1,0)},Enum.EasingStyle.Quint):Play()
+am.Text=tostring(math.floor(v))..ah.Suffix
+ah.Callback(v)
+end
+function ah.SetColor(_,c) ah.Color=c ao.BackgroundColor3=c end
+function ah.Destroy() ap:Destroy()end
+return ah.__type,ah
+end
+return ae
+end
+function a.SC()
+local aa=a.load'c'
+local ab=aa.New
+local ac=aa.NewRoundFrame
+local ad=aa.Tween
+local ae={}
+function ae.New(af,ag)
+local ah={
+__type="StatCard",
+Title=ag.Title or"Stat",
+Value=ag.Value or"0",
+Desc=ag.Desc or nil,
+Trend=ag.Trend or nil,
+TrendUp=ag.TrendUp~=false,
+Color=ag.Color or Color3.fromHex"#0091FF",
+Min=ag.Min or 0,
+Max=ag.Max or 100,
+ShowBar=ag.ShowBar~=false,
+Callback=ag.Callback or function()end,
+UIElements={},
+}
+local ai=ag.Window.ElementConfig.UIPadding
+local aj=ag.Window.ElementConfig.UICorner
+local ak=ab("TextLabel",{
+BackgroundTransparency=1,
+Text=tostring(ah.Value),
+TextSize=28,
+TextXAlignment="Left",
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+FontFace=Font.new(aa.Font,Enum.FontWeight.Bold),
+TextColor3=ah.Color,
+})
+local al=ab("TextLabel",{
+BackgroundTransparency=1,
+Text=ah.Title,
+TextSize=13,
+TextXAlignment="Left",
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+FontFace=Font.new(aa.Font,Enum.FontWeight.Medium),
+ThemeTag={TextColor3="ElementTitle"},
+TextTransparency=0.3,
+})
+local am=nil
+if ah.Trend then
+local tcolor=ah.TrendUp and Color3.fromHex"#22C55E" or Color3.fromHex"#EF4444"
+local tarrow=ah.TrendUp and"↑ " or"↓ "
+am=ab("TextLabel",{
+BackgroundTransparency=1,
+Text=tarrow..tostring(ah.Trend),
+TextSize=12,
+TextXAlignment="Right",
+Size=UDim2.new(0,0,0,0),
+AutomaticSize="XY",
+FontFace=Font.new(aa.Font,Enum.FontWeight.SemiBold),
+TextColor3=tcolor,
+})
+end
+local an=nil
+local ao=nil
+if ah.ShowBar then
+an=ab("Frame",{
+Size=UDim2.new(1,0,0,5),
+ClipsDescendants=true,
+BackgroundTransparency=0.88,
+ThemeTag={BackgroundColor3="ElementTitle"},
+},{ab("UICorner",{CornerRadius=UDim.new(1,0)})})
+local ratio=(tonumber(tostring(ah.Value))or 0-ah.Min)/(ah.Max-ah.Min)
+ratio=math.clamp(ratio,0,1)
+ao=ab("Frame",{
+Size=UDim2.new(ratio,0,1,0),
+BackgroundColor3=ah.Color,
+Parent=an,
+},{ab("UICorner",{CornerRadius=UDim.new(1,0)})})
+end
+local topRow=ab("Frame",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+BackgroundTransparency=1,
+},{
+ab("UIListLayout",{FillDirection="Horizontal",VerticalAlignment="Center",HorizontalFlex="Fill"}),
+ak,am,
+})
+local inner=ab("Frame",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+BackgroundTransparency=1,
+},{
+ab("UIListLayout",{Padding=UDim.new(0,4),FillDirection="Vertical",SortOrder="LayoutOrder"}),
+topRow,al,an,
+})
+local ap=ac(aj,"Squircle",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+Parent=ag.Parent,
+ThemeTag={ImageColor3="ElementBackground",ImageTransparency="ElementBackgroundTransparency"},
+},{
+inner,
+ab("UIPadding",{
+PaddingTop=UDim.new(0,ai),
+PaddingLeft=UDim.new(0,ai),
+PaddingRight=UDim.new(0,ai),
+PaddingBottom=UDim.new(0,ai),
+}),
+})
+local btn=ab("ImageButton",{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,ZIndex=10,Parent=ap})
+btn.MouseButton1Click:Connect(function() ah.Callback() end)
+ah.StatCardFrame={
+UIElements={Main=ap},
+Index=ag.Index,
+UpdateShape=function()end,
+SetTitle=function(_,t) ah.Title=t al.Text=t end,
+SetDesc=function()end,
+Highlight=function()end,
+Destroy=function() ap:Destroy()end,
+}
+function ah.SetValue(_,v,raw)
+ah.Value=v
+ak.Text=raw or tostring(v)
+if ao then
+local ratio=(tonumber(tostring(v))or 0-ah.Min)/(ah.Max-ah.Min)
+ratio=math.clamp(ratio,0,1)
+ad(ao,0.3,{Size=UDim2.new(ratio,0,1,0)},Enum.EasingStyle.Quint):Play()
+end
+ah.Callback(v)
+end
+function ah.SetTrend(_,t,up)
+ah.Trend=t
+ah.TrendUp=up~=false
+if am then
+local tcolor=ah.TrendUp and Color3.fromHex"#22C55E" or Color3.fromHex"#EF4444"
+am.TextColor3=tcolor
+am.Text=(ah.TrendUp and"↑ " or"↓ ")..tostring(t)
+end
+end
+function ah.SetColor(_,c) ah.Color=c ak.TextColor3=c if ao then ao.BackgroundColor3=c end end
+function ah.Destroy() ap:Destroy()end
+return ah.__type,ah
+end
+return ae
+end
+function a.PFC()
+local aa=a.load'c'
+local ab=aa.New
+local ac=aa.NewRoundFrame
+local ae={}
+local STATUS_COLORS={online=Color3.fromHex"#22C55E",offline=Color3.fromHex"#6B7280",away=Color3.fromHex"#F97316",busy=Color3.fromHex"#EF4444"}
+function ae.New(af,ag)
+local ah={
+__type="ProfileCard",
+Name=ag.Name or"Player",
+Role=ag.Role or nil,
+Image=ag.Image or nil,
+Status=ag.Status or"online",
+RoleColor=ag.RoleColor or Color3.fromHex"#0091FF",
+Callback=ag.Callback or function()end,
+UIElements={},
+}
+local ai=ag.Window.ElementConfig.UIPadding
+local aj=ag.Window.ElementConfig.UICorner
+local avatar
+if ah.Image then
+avatar=ab("ImageLabel",{
+Size=UDim2.new(0,42,0,42),
+Image=ah.Image,
+BackgroundColor3=Color3.fromHex"#1e293b",
+BackgroundTransparency=0,
+ScaleType="Crop",
+},{
+ab("UICorner",{CornerRadius=UDim.new(1,0)}),
+})
+else
+avatar=ab("Frame",{
+Size=UDim2.new(0,42,0,42),
+BackgroundColor3=ah.RoleColor,
+BackgroundTransparency=0.7,
+},{
+ab("UICorner",{CornerRadius=UDim.new(1,0)}),
+ab("TextLabel",{
+BackgroundTransparency=1,
+Text=string.upper(string.sub(ah.Name,1,1)),
+TextSize=20,
+TextColor3=Color3.new(1,1,1),
+Size=UDim2.new(1,0,1,0),
+FontFace=Font.new(aa.Font,Enum.FontWeight.Bold),
+}),
+})
+end
+local statusDot=ab("Frame",{
+Size=UDim2.new(0,10,0,10),
+BackgroundColor3=STATUS_COLORS[ah.Status]or STATUS_COLORS.online,
+BorderSizePixel=0,
+},{ab("UICorner",{CornerRadius=UDim.new(1,0)})})
+local nameLabel=ab("TextLabel",{
+BackgroundTransparency=1,
+Text=ah.Name,
+TextSize=16,
+TextXAlignment="Left",
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+FontFace=Font.new(aa.Font,Enum.FontWeight.Bold),
+ThemeTag={TextColor3="ElementTitle"},
+})
+local roleBadge=nil
+if ah.Role then
+roleBadge=ab("Frame",{
+Size=UDim2.new(0,0,0,20),
+AutomaticSize="X",
+BackgroundColor3=ah.RoleColor,
+BackgroundTransparency=0.15,
+},{
+ab("UICorner",{CornerRadius=UDim.new(0,5)}),
+ab("UIPadding",{PaddingLeft=UDim.new(0,7),PaddingRight=UDim.new(0,7),PaddingTop=UDim.new(0,1),PaddingBottom=UDim.new(0,1)}),
+ab("TextLabel",{
+BackgroundTransparency=1,
+Text=ah.Role,
+TextSize=12,
+TextColor3=Color3.new(1,1,1),
+Size=UDim2.new(0,0,1,0),
+AutomaticSize="X",
+FontFace=Font.new(aa.Font,Enum.FontWeight.SemiBold),
+}),
+})
+end
+local statusRow=ab("Frame",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+BackgroundTransparency=1,
+},{
+ab("UIListLayout",{Padding=UDim.new(0,6),FillDirection="Horizontal",VerticalAlignment="Center"}),
+statusDot,roleBadge,
+})
+local textStack=ab("Frame",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+BackgroundTransparency=1,
+},{
+ab("UIListLayout",{Padding=UDim.new(0,4),FillDirection="Vertical"}),
+nameLabel,statusRow,
+})
+local row=ab("Frame",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+BackgroundTransparency=1,
+},{
+ab("UIListLayout",{Padding=UDim.new(0,12),FillDirection="Horizontal",VerticalAlignment="Center",HorizontalFlex="Fill"}),
+avatar,textStack,
+})
+local ap=ac(aj,"Squircle",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+Parent=ag.Parent,
+ThemeTag={ImageColor3="ElementBackground",ImageTransparency="ElementBackgroundTransparency"},
+},{
+row,
+ab("UIPadding",{
+PaddingTop=UDim.new(0,ai),
+PaddingLeft=UDim.new(0,ai),
+PaddingRight=UDim.new(0,ai),
+PaddingBottom=UDim.new(0,ai),
+}),
+})
+local btn=ab("ImageButton",{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,ZIndex=10,Parent=ap})
+btn.MouseButton1Click:Connect(function() ah.Callback() end)
+ah.ProfileCardFrame={
+UIElements={Main=ap},
+Index=ag.Index,
+UpdateShape=function()end,
+SetTitle=function(_,t) ah.Name=t nameLabel.Text=t end,
+SetDesc=function()end,
+Highlight=function()end,
+Destroy=function() ap:Destroy()end,
+}
+function ah.SetStatus(_,s)
+ah.Status=s
+statusDot.BackgroundColor3=STATUS_COLORS[s]or STATUS_COLORS.online
+end
+function ah.SetRole(_,r,c)
+ah.Role=r
+if roleBadge then
+local lbl=roleBadge:FindFirstChildWhichIsA("TextLabel")
+if lbl then lbl.Text=r end
+if c then roleBadge.BackgroundColor3=c end
+end
+end
+function ah.Destroy() ap:Destroy()end
+return ah.__type,ah
+end
+return ae
+end
+function a.TL()
+local aa=a.load'c'
+local ab=aa.New
+local ac=aa.NewRoundFrame
+local ae={}
+local E_COLORS={success=Color3.fromHex"#22C55E",warning=Color3.fromHex"#F97316",error=Color3.fromHex"#EF4444",info=Color3.fromHex"#0091FF",default=Color3.fromHex"#6B7280"}
+function ae.New(af,ag)
+local ah={
+__type="Timeline",
+Title=ag.Title or"Timeline",
+Entries=ag.Entries or{},
+MaxEntries=ag.MaxEntries or 8,
+UIElements={},
+}
+local ai=ag.Window.ElementConfig.UIPadding
+local aj=ag.Window.ElementConfig.UICorner
+local titleLabel=ab("TextLabel",{
+BackgroundTransparency=1,
+Text=ah.Title,
+TextSize=15,
+TextXAlignment="Left",
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+FontFace=Font.new(aa.Font,Enum.FontWeight.SemiBold),
+ThemeTag={TextColor3="ElementTitle"},
+})
+local listFrame=ab("Frame",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+BackgroundTransparency=1,
+},{
+ab("UIListLayout",{Padding=UDim.new(0,6),FillDirection="Vertical",SortOrder="LayoutOrder"}),
+})
+local list=listFrame:FindFirstChildWhichIsA("UIListLayout")
+local entryFrames={}
+local function makeEntry(e,idx)
+local ec=E_COLORS[e.Type or"default"]or E_COLORS.default
+local dot=ab("Frame",{
+Size=UDim2.new(0,8,0,8),
+BackgroundColor3=ec,
+BorderSizePixel=0,
+},{ab("UICorner",{CornerRadius=UDim.new(1,0)})})
+local txt=ab("TextLabel",{
+BackgroundTransparency=1,
+Text=e.Text or"",
+TextSize=13,
+TextXAlignment="Left",
+TextWrapped=true,
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+FontFace=Font.new(aa.Font,Enum.FontWeight.Medium),
+ThemeTag={TextColor3="ElementTitle"},
+})
+local ts=ab("TextLabel",{
+BackgroundTransparency=1,
+Text=e.Time or"",
+TextSize=11,
+TextXAlignment="Right",
+TextTransparency=0.5,
+Size=UDim2.new(0,0,0,0),
+AutomaticSize="XY",
+FontFace=Font.new(aa.Font,Enum.FontWeight.Regular),
+ThemeTag={TextColor3="ElementDesc"},
+})
+local row=ab("Frame",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+BackgroundTransparency=1,
+LayoutOrder=idx,
+},{
+ab("UIListLayout",{Padding=UDim.new(0,8),FillDirection="Horizontal",VerticalAlignment="Center",HorizontalFlex="Fill"}),
+dot,txt,ts,
+})
+row.Parent=listFrame
+table.insert(entryFrames,row)
+return row
+end
+for idx,e in ipairs(ah.Entries) do
+makeEntry(e,idx)
+end
+local inner=ab("Frame",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+BackgroundTransparency=1,
+},{
+ab("UIListLayout",{Padding=UDim.new(0,8),FillDirection="Vertical",SortOrder="LayoutOrder"}),
+titleLabel,listFrame,
+})
+local ap=ac(aj,"Squircle",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+Parent=ag.Parent,
+ThemeTag={ImageColor3="ElementBackground",ImageTransparency="ElementBackgroundTransparency"},
+},{
+inner,
+ab("UIPadding",{
+PaddingTop=UDim.new(0,ai),
+PaddingLeft=UDim.new(0,ai),
+PaddingRight=UDim.new(0,ai),
+PaddingBottom=UDim.new(0,ai),
+}),
+})
+ah.TimelineFrame={
+UIElements={Main=ap},
+Index=ag.Index,
+UpdateShape=function()end,
+SetTitle=function(_,t) ah.Title=t titleLabel.Text=t end,
+SetDesc=function()end,
+Highlight=function()end,
+Destroy=function() ap:Destroy()end,
+}
+function ah.Add(_,e)
+if #entryFrames>=ah.MaxEntries then
+entryFrames[1]:Destroy()
+table.remove(entryFrames,1)
+end
+table.insert(ah.Entries,e)
+makeEntry(e,#entryFrames+1)
+end
+function ah.Clear()
+for _,f in ipairs(entryFrames) do f:Destroy()end
+entryFrames={}
+ah.Entries={}
+end
+function ah.Destroy() ap:Destroy()end
+return ah.__type,ah
+end
+return ae
+end
+function a.CW()
+local aa=a.load'c'
+local ab=aa.New
+local ac=aa.NewRoundFrame
+local ae={}
+function ae.New(af,ag)
+local duration=ag.Duration or 0
+local endsAt=ag.EndsAt or(os.time()+duration)
+local ah={
+__type="Countdown",
+Title=ag.Title or"Countdown",
+Desc=ag.Desc or nil,
+Color=ag.Color or Color3.fromHex"#0091FF",
+Callback=ag.Callback or function()end,
+Active=true,
+UIElements={},
+}
+local ai=ag.Window.ElementConfig.UIPadding
+local aj=ag.Window.ElementConfig.UICorner
+local ak=ab("TextLabel",{
+BackgroundTransparency=1,
+Text=ah.Title,
+TextSize=16,
+TextXAlignment="Left",
+TextWrapped=true,
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+FontFace=Font.new(aa.Font,Enum.FontWeight.SemiBold),
+ThemeTag={TextColor3="ElementTitle"},
+})
+local al=nil
+if ah.Desc then
+al=ab("TextLabel",{
+BackgroundTransparency=1,
+Text=ah.Desc,
+TextSize=13,
+TextXAlignment="Left",
+TextTransparency=0.4,
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+FontFace=Font.new(aa.Font,Enum.FontWeight.Medium),
+ThemeTag={TextColor3="ElementDesc"},
+})
+end
+local function fmt(secs)
+secs=math.max(0,math.floor(secs))
+local d=math.floor(secs/86400)
+local h=math.floor((secs%86400)/3600)
+local m=math.floor((secs%3600)/60)
+local s=secs%60
+if d>0 then
+return string.format("%dd %02d:%02d:%02d",d,h,m,s)
+end
+return string.format("%02d:%02d:%02d",h,m,s)
+end
+local remaining=math.max(0,endsAt-os.time())
+local am=ab("TextLabel",{
+BackgroundTransparency=1,
+Text=fmt(remaining),
+TextSize=26,
+TextXAlignment="Left",
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+FontFace=Font.new(aa.Font,Enum.FontWeight.Bold),
+TextColor3=ah.Color,
+})
+local an=ab("Frame",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+BackgroundTransparency=1,
+},{
+ab("UIListLayout",{Padding=UDim.new(0,6),FillDirection="Vertical",SortOrder="LayoutOrder"}),
+ab("Frame",{Size=UDim2.new(1,0,0,0),AutomaticSize="Y",BackgroundTransparency=1,LayoutOrder=0},{
+ab("UIListLayout",{Padding=UDim.new(0,2),FillDirection="Vertical"}),
+ak,al,
+}),
+am,
+})
+local ao=ac(aj,"Squircle",{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+Parent=ag.Parent,
+ThemeTag={ImageColor3="ElementBackground",ImageTransparency="ElementBackgroundTransparency"},
+},{
+an,
+ab("UIPadding",{
+PaddingTop=UDim.new(0,ai),
+PaddingLeft=UDim.new(0,ai),
+PaddingRight=UDim.new(0,ai),
+PaddingBottom=UDim.new(0,ai),
+}),
+})
+local conn
+conn=game:GetService"RunService".Heartbeat:Connect(function()
+if not ah.Active then conn:Disconnect() return end
+local rem=endsAt-os.time()
+am.Text=fmt(rem)
+if rem<=0 then
+ah.Active=false
+conn:Disconnect()
+ah.Callback()
+end
+end)
+ah.CountdownFrame={
+UIElements={Main=ao},
+Index=ag.Index,
+UpdateShape=function()end,
+SetTitle=function(_,t) ah.Title=t ak.Text=t end,
+SetDesc=function(_,t) if al then al.Text=t or"" end end,
+Highlight=function()end,
+Destroy=function() ah.Active=false ao:Destroy()end,
+}
+function ah.SetColor(_,c) ah.Color=c am.TextColor3=c end
+function ah.Reset(_,secs)
+endsAt=os.time()+(secs or duration)
+ah.Active=true
+if not conn.Connected then
+conn=game:GetService"RunService".Heartbeat:Connect(function()
+if not ah.Active then conn:Disconnect() return end
+local rem=endsAt-os.time()
+am.Text=fmt(rem)
+if rem<=0 then ah.Active=false conn:Disconnect() ah.Callback() end
+end)
+end
+end
+function ah.Destroy() ah.Active=false ao:Destroy()end
+return ah.__type,ah
+end
+return ae
+end
+
+function a.X()
 return{
 Elements={
 Paragraph=a.load'C',
@@ -10109,6 +10930,12 @@ Image=a.load'T',
 Group=a.load'U',
 HStack=a.load'V',
 VStack=a.load'W',
+ProgressBar=a.load'PB',
+Card=a.load'CD',
+StatCard=a.load'SC',
+ProfileCard=a.load'PFC',
+Timeline=a.load'TL',
+Countdown=a.load'CW',
 
 },
 Load=function(aa,ae,af,ah,aj,ak,al,am,an)
